@@ -1,0 +1,109 @@
+﻿@* @model HairSalon.Models.User *@
+@* @{ *@
+@*     ViewData["Title"] = "Đăng ký tài khoản"; *@
+@* } *@
+@* <div class="row justify-content-center mt-5"> *@
+@*     <div class="col-md-5"> *@
+@*         <h3 class="text-center mb-3">Đăng ký thành viên</h3> *@
+
+@*         @if (!ViewData.ModelState.IsValid) *@
+@*         { *@
+@*             <div class="alert alert-danger"> *@
+@*                 @Html.ValidationSummary(false, "", new { @class = "text-danger" }) *@
+@*             </div> *@
+@*         } *@
+
+@*         <form asp-action="Register" method="post" class="border p-4 shadow-sm rounded bg-white"> *@
+@*             <div class="form-group mb-3"> *@
+@*                 <label>Họ và Tên</label> *@
+@*                 <input type="text" asp-for="FullName" class="form-control" required /> *@
+@*             </div> *@
+@*             <div class="form-group mb-3"> *@
+@*                 <label>Số điện thoại</label> *@
+@*                 <input type="text" asp-for="Phone" class="form-control" required /> *@
+@*             </div> *@
+@*             <div class="form-group mb-3"> *@
+@*                 <label>Tên đăng nhập</label> *@
+@*                 <input type="text" asp-for="Username" class="form-control" required /> *@
+@*             </div> *@
+@*             <div class="form-group mb-3"> *@
+@*                 <label>Mật khẩu</label> *@
+@*                 <input type="password" asp-for="PasswordHash" class="form-control" required minlength="6" /> *@
+@*             </div> *@
+@*             <div class="form-group mb-4"> *@
+@*                 <label>Xác nhận mật khẩu</label> *@
+@*                 <input type="password" name="confirmPassword" class="form-control" required minlength="6" /> *@
+@*             </div> *@
+@*             <button type="submit" class="btn btn-success w-100 mb-3">Đăng ký ngay</button> *@
+
+@*             <div class="text-center"> *@
+@*                 Đã có tài khoản? <a asp-action="Login">Đăng nhập tại đây</a> *@
+@*             </div> *@
+@*         </form> *@
+@*     </div> *@
+@* </div> *@
+
+@model HairSalon.Models.User
+@{
+    ViewData["Title"] = "Đăng ký tài khoản";
+}
+<div class="row justify-content-center mt-5 mb-5">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-lg border-0 rounded-4 p-4 p-md-5 bg-white">
+            <div class="text-center mb-4">
+                <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow" style="width: 60px; height: 60px;">
+                    <i class="fa-solid fa-user-plus fs-3 text-white"></i>
+                </div>
+                <h3 class="fw-bold text-dark">Tạo tài khoản mới</h3>
+                <p class="text-muted small">Đăng ký để trải nghiệm dịch vụ cắt tóc chuyên nghiệp</p>
+            </div>
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger rounded-3 small">
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger mb-0 list-unstyled" })
+                </div>
+            }
+
+            <form asp-action="Register" method="post">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label class="form-label fw-bold text-muted small">HỌ VÀ TÊN</label>
+                        <input type="text" asp-for="FullName" class="form-control form-control-lg bg-light border-0 shadow-sm" placeholder="Nhập họ và tên..." required />
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label fw-bold text-muted small">SỐ ĐIỆN THOẠI</label>
+                        <input type="text" asp-for="Phone" class="form-control form-control-lg bg-light border-0 shadow-sm" placeholder="Nhập số điện thoại..." required />
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label fw-bold text-muted small">TÊN ĐĂNG NHẬP</label>
+                        <input type="text" asp-for="Username" class="form-control form-control-lg bg-light border-0 shadow-sm" placeholder="Nhập tên tài khoản..." required />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold text-muted small">MẬT KHẨU</label>
+                        <input type="password" asp-for="PasswordHash" class="form-control form-control-lg bg-light border-0 shadow-sm" placeholder="Mật khẩu..." required minlength="6" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold text-muted small">XÁC NHẬN LẠI</label>
+                        <input type="password" name="confirmPassword" class="form-control form-control-lg bg-light border-0 shadow-sm" placeholder="Xác nhận..." required minlength="6" />
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill w-100 fw-bold shadow">
+                            ĐĂNG KÝ NGAY
+                        </button>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <span class="text-muted">Đã có tài khoản?</span>
+                    <a asp-action="Login" class="text-warning fw-bold text-decoration-none">Đăng nhập tại đây</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

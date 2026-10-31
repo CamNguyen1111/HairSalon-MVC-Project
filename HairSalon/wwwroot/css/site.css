@@ -1,0 +1,129 @@
+﻿html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa; /* Màu nền xám nhạt sang trọng */
+    color: #333;
+}
+
+/* Tùy chỉnh Thanh điều hướng (Navbar) */
+.navbar {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    padding: 15px 0;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #555 !important;
+    transition: color 0.3s ease;
+}
+
+    .nav-link:hover {
+        color: #d4af37 !important; /* Vàng Gold */
+    }
+
+/* Tùy chỉnh Bảng (Table) & Card */
+.card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+
+.table {
+    vertical-align: middle;
+}
+
+    .table thead th {
+        background-color: #f4f6f9;
+        color: #444;
+        border-bottom: none;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+        padding: 15px;
+    }
+
+    .table tbody td {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+    }
+
+/* Tùy chỉnh Nút bấm (Buttons) */
+.btn {
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #111;
+    border: none;
+    color: #fff;
+}
+
+    .btn-primary:hover {
+        background-color: #333;
+        transform: scale(1.02);
+    }
+
+.btn-warning {
+    background-color: #d4af37;
+    color: #fff;
+    border: none;
+}
+
+    .btn-warning:hover {
+        background-color: #c5a028;
+        color: #fff;
+        transform: scale(1.02);
+    }
+
+/* Form Inputs */
+.form-control, .form-select {
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    box-shadow: none;
+}
+
+    .form-control:focus, .form-select:focus {
+        border-color: #d4af37;
+        box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+    }

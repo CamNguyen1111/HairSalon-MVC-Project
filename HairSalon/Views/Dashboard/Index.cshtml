@@ -1,0 +1,123 @@
+﻿@{
+    ViewData["Title"] = "Thống kê Doanh thu";
+}
+<div class="container mt-4">
+    <h2 class="mb-4">Dashboard Quản trị</h2>
+
+    <!-- 3 Thẻ số liệu tổng -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Tổng Khách hàng</h5>
+                    <h2 class="card-text">@ViewBag.TotalUsers</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Tổng Doanh thu</h5>
+                    <h2 class="card-text">@String.Format("{0:N0} VNĐ", ViewBag.TotalRevenue)</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Tổng Lịch hẹn</h5>
+                    <h2 class="card-text">@ViewBag.TotalAppointments</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Biểu đồ Doanh thu (Chiếm 4 phần) -->
+        <div class="col-md-4">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-white fw-bold">
+                    Biểu đồ Doanh thu theo Dịch vụ
+                </div>
+                <div class="card-body">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bảng lịch hẹn (Chiếm 8 phần) -->
+        <div class="col-md-8">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-white fw-bold">
+                    Danh sách Lịch hẹn gần đây
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-striped table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Khách hàng</th>
+                                <th>Dịch vụ</th>
+                                <th>Giá dịch vụ</th>
+                                <th>Ngày - Giờ</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.RecentAppointments)
+                            {
+                                <tr>
+                                    <td>@(item.Customer?.FullName ?? "Khách vãng lai")</td>
+                                    <td>@(item.Service?.ServiceName ?? "Trống")</td>
+                                    <td class="text-danger fw-bold">@String.Format("{0:N0} đ", item.Service?.Price)</td>
+                                    <td>@item.AppointmentDate.ToString("dd/MM/yyyy") - @item.StartTime</td>
+                                    <td>
+                                        @if (item.Status == "Completed")
+                                        {
+                                            <span class="badge bg-success">Hoàn thành</span>
+                                        }
+                                        else if (item.Status == "Pending")
+                                        {
+                                            <span class="badge bg-warning text-dark">Chờ xác nhận</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">@item.Status</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Nhúng thư viện Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Lấy dữ liệu từ C# truyền xuống JS một cách an toàn
+    var labels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.ChartLabels));
+    var data = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.ChartValues));
+
+    // Vẽ biểu đồ tròn (Doughnut)
+    var ctx = document.getElementById('revenueChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: ['#28a745', '#007bff', '#ffc107', '#dc3545', '#17a2b8'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom' }
+            }
+        }
+    });
+</script>

@@ -1,0 +1,126 @@
+﻿@* @model IEnumerable<HairSalon.Models.Appointment> *@
+@* @{ *@
+@*     ViewData["Title"] = "Lịch sử của tôi"; *@
+@* } *@
+
+@* <div class="container mt-5"> *@
+@*     <h2>Lịch sử đặt lịch</h2> *@
+@*     <table class="table table-bordered mt-3"> *@
+@*         <thead class="table-dark"> *@
+@*             <tr> *@
+@*                 <th>Dịch vụ</th> *@
+@*                 <th>Ngày hẹn</th> *@
+@*                 <th>Giờ hẹn</th> *@
+@*                 <th>Thợ cắt tóc</th> *@
+@*                 <th>Trạng thái</th> *@
+@*                 <th>Thao tác</th> *@
+@*             </tr> *@
+@*         </thead> *@
+@*         <tbody> *@
+@*             @foreach (var item in Model) *@
+@*             { *@
+@*                     <tr> *@
+@*                         <td>@item.Service.ServiceName</td> *@
+@*                         <td>@item.AppointmentDate.ToString("dd/MM/yyyy")</td> *@
+@*                         <td>@item.StartTime</td> *@
+@*                         <td>@(item.Staff != null ? item.Staff.FullName : "Chưa phân công")</td> *@
+@*                         <td> *@
+@*                         @if (item.Status == "Pending") *@
+@*                         { *@
+@*                             <span class="badge bg-warning text-dark">Chờ xác nhận</span> *@
+@*                         } *@
+@*                         else if (item.Status == "Confirmed") *@
+@*                         { *@
+@*                             <span class="badge bg-info text-dark">Đã xác nhận</span> *@
+@*                         } *@
+@*                         else if (item.Status == "Completed") *@
+@*                         { *@
+@*                             <span class="badge bg-success">Hoàn thành</span> *@
+@*                         } *@
+@*                         else *@
+@*                         { *@
+@*                             <span class="badge bg-danger">Đã hủy</span> *@
+@*                         } *@
+@*                         </td> *@
+@*                         <td> *@
+@*                         @if (item.Status == "Pending") *@
+@*                         { *@
+@*                                     <form asp-action="Cancel" asp-route-id="@item.AppointmentId" method="post"> *@
+@*                                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn chắc chắn muốn hủy lịch này?');">Hủy lịch</button> *@
+@*                                     </form> *@
+@*                         } *@
+@*                         </td> *@
+@*                     </tr> *@
+@*             } *@
+@*         </tbody> *@
+@*     </table> *@
+@* </div> *@
+
+@model IEnumerable<HairSalon.Models.Appointment>
+@{
+    ViewData["Title"] = "Lịch sử của tôi";
+}
+
+<div class="container mt-5 mb-5">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-dark"><i class="fa-solid fa-clock-rotate-left text-warning me-2"></i>Lịch Sử Đặt Lịch</h2>
+        <p class="text-muted">Theo dõi các lịch hẹn bạn đã đặt tại HairSalon</p>
+    </div>
+
+    <div class="card shadow-sm border-0 overflow-hidden rounded-4">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="px-4 py-3">Dịch vụ</th>
+                        <th class="py-3">Ngày - Giờ</th>
+                        <th class="py-3">Thợ cắt tóc</th>
+                        <th class="py-3">Trạng thái</th>
+                        <th class="text-end px-4 py-3">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="align-middle">
+                            <td class="px-4 fw-bold text-primary">@item.Service.ServiceName</td>
+                            <td>
+                                <i class="fa-regular fa-calendar text-muted me-1"></i> @item.AppointmentDate.ToString("dd/MM/yyyy") <br />
+                                <i class="fa-regular fa-clock text-warning me-1"></i> @item.StartTime
+                            </td>
+                            <td>@(item.Staff != null ? item.Staff.FullName : "Sắp xếp ngẫu nhiên")</td>
+                            <td>
+                                @if (item.Status == "Pending")
+                                {
+                                    <span class="badge bg-warning text-dark rounded-pill px-3"><i class="fa-solid fa-hourglass-half me-1"></i>Chờ xác nhận</span>
+                                }
+                                else if (item.Status == "Confirmed")
+                                {
+                                    <span class="badge bg-info text-dark rounded-pill px-3"><i class="fa-solid fa-thumbs-up me-1"></i>Đã xác nhận</span>
+                                }
+                                else if (item.Status == "Completed")
+                                {
+                                    <span class="badge bg-success rounded-pill px-3"><i class="fa-solid fa-check-double me-1"></i>Hoàn thành</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary rounded-pill px-3"><i class="fa-solid fa-ban me-1"></i>Đã hủy</span>
+                                }
+                            </td>
+                            <td class="text-end px-4">
+                                @if (item.Status == "Pending")
+                                {
+                                    <form asp-action="Cancel" asp-route-id="@item.AppointmentId" method="post">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-bold" onclick="return confirm('Bạn chắc chắn muốn hủy lịch hẹn này chứ?');">
+                                            <i class="fa-solid fa-xmark me-1"></i> Hủy lịch
+                                        </button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

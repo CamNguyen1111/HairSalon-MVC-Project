@@ -1,0 +1,133 @@
+﻿@* @model HairSalon.Models.User *@
+
+@* @{ *@
+@*     ViewData["Title"] = "Create"; *@
+@* } *@
+
+@* <h1>Create</h1> *@
+
+@* <h4>User</h4> *@
+@* <hr /> *@
+@* <div class="row"> *@
+@*     <div class="col-md-4"> *@
+@*         <form asp-action="Create"> *@
+@*             <div asp-validation-summary="ModelOnly" class="text-danger"></div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="RoleId" class="control-label"></label> *@
+@*                 <select asp-for="RoleId" class ="form-control" asp-items="ViewBag.RoleId"></select> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="Username" class="control-label"></label> *@
+@*                 <input asp-for="Username" class="form-control" /> *@
+@*                 <span asp-validation-for="Username" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="PasswordHash" class="control-label"></label> *@
+@*                 <input asp-for="PasswordHash" class="form-control" /> *@
+@*                 <span asp-validation-for="PasswordHash" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="FullName" class="control-label"></label> *@
+@*                 <input asp-for="FullName" class="form-control" /> *@
+@*                 <span asp-validation-for="FullName" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="Phone" class="control-label"></label> *@
+@*                 <input asp-for="Phone" class="form-control" /> *@
+@*                 <span asp-validation-for="Phone" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <input type="submit" value="Create" class="btn btn-primary" /> *@
+@*             </div> *@
+@*         </form> *@
+@*     </div> *@
+@* </div> *@
+
+@* <div> *@
+@*     <a asp-action="Index">Back to List</a> *@
+@* </div> *@
+
+@* @section Scripts { *@
+@*     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} *@
+@* } *@
+
+
+@model HairSalon.Models.User
+
+@{
+    ViewData["Title"] = "Thêm Người dùng";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4 mt-3">
+    <h2 class="fw-bold"><i class="fa-solid fa-user-plus text-primary me-2"></i>Thêm Người dùng Mới</h2>
+    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-3 fw-bold">
+        <i class="fa-solid fa-arrow-left me-1"></i> Quay lại
+    </a>
+</div>
+
+<div class="card shadow-sm border-0 rounded-4 p-4 mb-5 bg-white">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3" role="alert"></div>
+
+        <div class="row g-5">
+            <!-- Cột trái: Thông tin cá nhân -->
+            <div class="col-md-6">
+                <h5 class="fw-bold text-dark mb-4 border-bottom pb-2"><i class="fa-regular fa-address-card text-primary me-2"></i>Thông tin cá nhân</h5>
+
+                <div class="form-group mb-4">
+                    <label asp-for="FullName" class="form-label fw-medium text-muted">Họ và Tên <span class="text-danger">*</span></label>
+                    <input asp-for="FullName" class="form-control form-control-lg bg-light border-0" placeholder="Nhập họ và tên..." required />
+                    <span asp-validation-for="FullName" class="text-danger small"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="Phone" class="form-label fw-medium text-muted">Số điện thoại <span class="text-danger">*</span></label>
+                    <input asp-for="Phone" class="form-control form-control-lg bg-light border-0" placeholder="Nhập số điện thoại..." required />
+                    <span asp-validation-for="Phone" class="text-danger small"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="RoleId" class="form-label fw-medium text-muted">Vai trò (Quyền) <span class="text-danger">*</span></label>
+                    <select asp-for="RoleId" class="form-select form-select-lg bg-light border-0" asp-items="ViewBag.RoleId" required>
+                        <option value="">-- Chọn vai trò --</option>
+                    </select>
+                    <span asp-validation-for="RoleId" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <!-- Cột phải: Thông tin bảo mật -->
+            <div class="col-md-6">
+                <h5 class="fw-bold text-dark mb-4 border-bottom pb-2"><i class="fa-solid fa-shield-halved text-danger me-2"></i>Thông tin bảo mật</h5>
+
+                <div class="form-group mb-4">
+                    <label asp-for="Username" class="form-label fw-medium text-muted">Tên đăng nhập <span class="text-danger">*</span></label>
+                    <input asp-for="Username" class="form-control form-control-lg bg-light border-0" placeholder="Nhập tên tài khoản..." required />
+                    <span asp-validation-for="Username" class="text-danger small"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="PasswordHash" class="form-label fw-medium text-muted">Mật khẩu <span class="text-danger">*</span></label>
+                    <input asp-for="PasswordHash" type="text" class="form-control form-control-lg bg-light border-0" placeholder="Nhập mật khẩu..." required />
+                    <span asp-validation-for="PasswordHash" class="text-danger small"></span>
+                </div>
+
+                <div class="form-check mt-4 pt-2">
+                    <!-- Đổi asp-for thành id, name và value="true" -->
+                    <input class="form-check-input fs-5" type="checkbox" id="IsActive" name="IsActive" value="true" checked />
+                    <!-- Đổi asp-for thành for -->
+                    <label class="form-check-label fw-bold text-success mt-1 ms-2" for="IsActive">
+                        <i class="fa-solid fa-circle-check me-1"></i> Kích hoạt tài khoản ngay
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4" />
+
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5 fw-bold shadow">
+                <i class="fa-solid fa-floppy-disk me-2"></i> Lưu người dùng
+            </button>
+        </div>
+    </form>
+</div>

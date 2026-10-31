@@ -1,0 +1,140 @@
+﻿@* @model IEnumerable<HairSalon.Models.User> *@
+
+@* @{ *@
+@*     ViewData["Title"] = "Index"; *@
+@* } *@
+
+@* <h1>Index</h1> *@
+
+@* <p> *@
+@*     <a asp-action="Create">Create New</a> *@
+@* </p> *@
+@* <table class="table"> *@
+@*     <thead> *@
+@*         <tr> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.Username) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.PasswordHash) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.FullName) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.Phone) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.IsActive) *@
+@*             </th> *@
+@*             <th> *@
+@*                 @Html.DisplayNameFor(model => model.Role) *@
+@*             </th> *@
+@*             <th></th> *@
+@*         </tr> *@
+@*     </thead> *@
+@*     <tbody> *@
+@* @foreach (var item in Model) { *@
+@*         <tr> *@
+@*             <td> *@
+@*                 @Html.DisplayFor(modelItem => item.Username) *@
+@*             </td> *@
+@*             <td> *@
+@*                 @Html.DisplayFor(modelItem => item.PasswordHash) *@
+@*             </td> *@
+@*             <td> *@
+@*                 @Html.DisplayFor(modelItem => item.FullName) *@
+@*             </td> *@
+@*             <td> *@
+@*                 @Html.DisplayFor(modelItem => item.Phone) *@
+@*             </td> *@
+@*             <td> *@
+@*                 @Html.DisplayFor(modelItem => item.IsActive) *@
+@*             </td> *@
+@*             <td> *@
+@*                 @Html.DisplayFor(modelItem => item.Role.RoleId) *@
+@*             </td> *@
+@*             <td> *@
+@*                 <a asp-action="Edit" asp-route-id="@item.UserId">Edit</a> | *@
+@*                 <a asp-action="Details" asp-route-id="@item.UserId">Details</a> | *@
+@*                 <a asp-action="Delete" asp-route-id="@item.UserId">Delete</a> *@
+@*             </td> *@
+@*         </tr> *@
+@* } *@
+@*     </tbody> *@
+@* </table> *@
+
+
+@model IEnumerable<HairSalon.Models.User>
+
+@{
+    ViewData["Title"] = "Quản lý Người dùng";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4 mt-3">
+    <h2 class="fw-bold"><i class="fa-solid fa-users text-primary me-2"></i>Quản lý Người dùng</h2>
+    <a asp-action="Create" class="btn btn-primary shadow-sm fw-bold">
+        <i class="fa-solid fa-user-plus me-1"></i> Thêm thành viên
+    </a>
+</div>
+
+<div class="card shadow-sm border-0 overflow-hidden">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th class="px-4 py-3">Họ và Tên</th>
+                    <th class="py-3">Tài khoản</th>
+                    <th class="py-3">Số điện thoại</th>
+                    <th class="py-3">Vai trò</th>
+                    <th class="py-3">Trạng thái</th>
+                    <th class="text-end px-4 py-3">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="align-middle">
+                        <td class="px-4 fw-bold text-dark">
+                            <i class="fa-regular fa-circle-user text-muted me-2"></i>@item.FullName
+                        </td>
+                        <td class="text-muted">@item.Username</td>
+                        <td>@item.Phone</td>
+                        <td>
+                            @if (item.RoleId == 1)
+                            {
+                                <span class="badge bg-danger"><i class="fa-solid fa-shield-halved me-1"></i> Admin</span>
+                            }
+                            else if (item.RoleId == 2)
+                            {
+                                <span class="badge bg-info text-dark"><i class="fa-solid fa-scissors me-1"></i> Thợ cắt tóc</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Khách hàng</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.IsActive == true)
+                            {
+                                <span class="badge bg-success bg-opacity-75">Hoạt động</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger bg-opacity-75">Khóa</span>
+                            }
+                        </td>
+                        <td class="text-end px-4">
+                            <a asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                <i class="fa-solid fa-pen"></i> Sửa
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.UserId" class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                                <i class="fa-solid fa-trash"></i> Xóa
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

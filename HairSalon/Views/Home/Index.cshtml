@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<!-- Banner chính -->
+<div class="p-5 mb-4 bg-dark text-white rounded-3 shadow" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1000') no-repeat center center; background-size: cover;">
+    <div class="container-fluid py-5 text-center">
+        <h1 class="display-4 fw-bold text-warning">Chào mừng đến với HairSalon</h1>
+        <p class="col-md-8 mx-auto fs-4">Trải nghiệm dịch vụ cắt tóc, tạo kiểu và chăm sóc tóc chuyên nghiệp nhất. Đội ngũ thợ lành nghề của chúng tôi luôn sẵn sàng phục vụ bạn.</p>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <!-- Khách chưa đăng nhập: Bắt buộc sang trang Đăng nhập -->
+            <a asp-controller="Account" asp-action="Login" class="btn btn-warning btn-lg fw-bold mt-3 px-5 py-3 rounded-pill">
+                ✂️ ĐĂNG NHẬP ĐỂ ĐẶT LỊCH
+            </a>
+        }
+        else if (User.IsInRole("Customer"))
+        {
+            <!-- Khách hàng đã đăng nhập: Cho phép đặt lịch -->
+            <a asp-controller="Booking" asp-action="Index" class="btn btn-warning btn-lg fw-bold mt-3 px-5 py-3 rounded-pill">
+                ✂️ ĐẶT LỊCH NGAY
+            </a>
+        }
+        else
+        {
+            <!-- Quản trị viên / Thợ: Chuyển hướng vào trang quản lý -->
+            <a asp-controller="Appointments" asp-action="Index" class="btn btn-warning btn-lg fw-bold mt-3 px-5 py-3 rounded-pill">
+                ⚙️ VÀO KHU VỰC QUẢN TRỊ
+            </a>
+        }
+    </div>
+</div>
+
+<!-- Giới thiệu Dịch vụ nổi bật -->
+<div class="row align-items-md-stretch text-center mt-5">
+    <h2 class="mb-4 fw-bold">Dịch vụ của chúng tôi</h2>
+    <div class="col-md-4">
+        <div class="h-100 p-5 bg-light border rounded-3 shadow-sm">
+            <h2 class="text-primary">Cắt & Tạo kiểu</h2>
+            <p>Tư vấn kiểu tóc phù hợp với khuôn mặt, cập nhật các xu hướng mới nhất giúp bạn tự tin tỏa sáng.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="h-100 p-5 bg-light border rounded-3 shadow-sm">
+            <h2 class="text-success">Uốn & Nhuộm</h2>
+            <p>Sử dụng hóa chất cao cấp, an toàn cho da đầu, giữ nếp lâu và lên màu chuẩn không cần chỉnh.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="h-100 p-5 bg-light border rounded-3 shadow-sm">
+            <h2 class="text-danger">Chăm sóc phục hồi</h2>
+            <p>Phục hồi tóc hư tổn, khô xơ bằng các liệu trình chuyên sâu, trả lại mái tóc chắc khỏe bóng mượt.</p>
+        </div>
+    </div>
+</div>

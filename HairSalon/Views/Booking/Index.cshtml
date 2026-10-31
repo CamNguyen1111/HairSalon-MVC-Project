@@ -1,0 +1,114 @@
+﻿@* @model HairSalon.Models.Appointment *@
+@* @{ *@
+@*     ViewData["Title"] = "Đặt lịch cắt tóc"; *@
+@* } *@
+
+@* <div class="container mt-5"> *@
+@*     <h2>Đặt lịch cắt tóc</h2> *@
+@*     <hr /> *@
+
+@*     <!-- Hiển thị thông báo lỗi trùng lịch nếu có --> *@
+@*     @if (!ViewData.ModelState.IsValid) *@
+@*     { *@
+@*         <div class="alert alert-danger"> *@
+@*             @Html.ValidationSummary(false, "", new { @class = "text-danger" }) *@
+@*         </div> *@
+@*     } *@
+
+@*     <form asp-action="Index" method="post" class="w-50"> *@
+@*         <div class="form-group mb-3"> *@
+@*             <label>Chọn Dịch vụ</label> *@
+@*             <select asp-for="ServiceId" class="form-control" asp-items="ViewBag.Services"></select> *@
+@*         </div> *@
+
+@*         <div class="form-group mb-3"> *@
+@*             <label>Chọn Thợ cắt tóc (Tùy chọn)</label> *@
+@*             <select asp-for="StaffId" class="form-control" asp-items="ViewBag.Staffs"> *@
+@*                 <option value="">-- Bất kỳ thợ nào --</option> *@
+@*             </select> *@
+@*         </div> *@
+
+@*         <div class="form-group mb-3"> *@
+@*             <label>Ngày cắt tóc</label> *@
+@*             <input asp-for="AppointmentDate" type="date" class="form-control" required min="@DateTime.Now.ToString("yyyy-MM-dd")" /> *@
+@*         </div> *@
+
+@*         <div class="form-group mb-3"> *@
+@*             <label>Khung giờ</label> *@
+@*             <input asp-for="StartTime" type="time" class="form-control" required /> *@
+@*         </div> *@
+
+@*         <div class="form-group mb-3"> *@
+@*             <label>Ghi chú cho thợ</label> *@
+@*             <textarea asp-for="Notes" class="form-control" rows="3"></textarea> *@
+@*         </div> *@
+
+@*         <button type="submit" class="btn btn-primary">Xác nhận Đặt lịch</button> *@
+@*     </form> *@
+@* </div> *@
+
+@model HairSalon.Models.Appointment
+@{
+    ViewData["Title"] = "Đặt lịch cắt tóc";
+}
+
+<div class="row justify-content-center mt-5 mb-5">
+    <div class="col-lg-8 col-md-10">
+        <div class="card shadow-lg border-0 rounded-4 p-5 bg-white">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold text-dark"><i class="fa-solid fa-calendar-check text-warning me-2"></i>Đặt Lịch Cắt Tóc</h2>
+                <p class="text-muted">Vui lòng điền thông tin bên dưới, chúng tôi sẽ giữ chỗ cho bạn!</p>
+            </div>
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger rounded-3">
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger mb-0" })
+                </div>
+            }
+
+            <form asp-action="Index" method="post">
+                <div class="row g-4">
+                    <!-- Dịch vụ & Thợ -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold text-muted">Chọn Dịch vụ <span class="text-danger">*</span></label>
+                        <select asp-for="ServiceId" class="form-select form-select-lg bg-light border-0" asp-items="ViewBag.Services" required>
+                            <option value="">-- Vui lòng chọn dịch vụ --</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold text-muted">Chọn Stylist (Tùy chọn)</label>
+                        <select asp-for="StaffId" class="form-select form-select-lg bg-light border-0" asp-items="ViewBag.Staffs">
+                            <option value="">-- Bất kỳ thợ nào --</option>
+                        </select>
+                    </div>
+
+                    <!-- Ngày & Giờ -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold text-muted">Ngày cắt tóc <span class="text-danger">*</span></label>
+                        <input asp-for="AppointmentDate" type="date" class="form-control form-control-lg bg-light border-0" required min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold text-muted">Khung giờ <span class="text-danger">*</span></label>
+                        <input asp-for="StartTime" type="time" class="form-control form-control-lg bg-light border-0" required />
+                    </div>
+
+                    <!-- Ghi chú -->
+                    <div class="col-12">
+                        <label class="form-label fw-bold text-muted">Ghi chú cho thợ (Nếu có)</label>
+                        <textarea asp-for="Notes" class="form-control bg-light border-0" rows="3" placeholder="Ví dụ: Cắt ngắn hai bên, giữ độ dài mái..."></textarea>
+                    </div>
+
+                    <!-- Nút Đặt lịch -->
+                    <div class="col-12 mt-5 text-center">
+                        <button type="submit" class="btn btn-warning btn-lg rounded-pill px-5 py-3 fw-bold shadow-sm w-100 fs-5 text-white">
+                            <i class="fa-solid fa-paper-plane me-2"></i> XÁC NHẬN ĐẶT LỊCH
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
