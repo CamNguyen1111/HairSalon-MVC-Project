@@ -53,8 +53,66 @@
 @* </table> *@
 
 
-@model IEnumerable<HairSalon.Models.Service>
+@* @model IEnumerable<HairSalon.Models.Service> *@
 
+@* @{ *@
+@*     ViewData["Title"] = "Quản lý Dịch vụ"; *@
+@* } *@
+
+@* <div class="d-flex justify-content-between align-items-center mb-4 mt-3"> *@
+@*     <h2 class="fw-bold"><i class="fa-solid fa-list text-warning me-2"></i>Quản lý Dịch vụ</h2> *@
+@*     <a asp-action="Create" class="btn btn-warning shadow-sm fw-bold"> *@
+@*         <i class="fa-solid fa-plus me-1"></i> Thêm dịch vụ mới *@
+@*     </a> *@
+@* </div> *@
+
+@* <div class="card shadow-sm border-0 overflow-hidden"> *@
+@*     <div class="card-body p-0"> *@
+@*         <table class="table table-hover mb-0"> *@
+@*             <thead class="table-light"> *@
+@*                 <tr> *@
+@*                     <th class="px-4 py-3">Tên dịch vụ</th> *@
+@*                     <th class="py-3">Giá tiền</th> *@
+@*                     <th class="py-3">Thời gian (phút)</th> *@
+@*                     <th class="py-3">Mô tả</th> *@
+@*                     <th class="text-end px-4 py-3">Thao tác</th> *@
+@*                 </tr> *@
+@*             </thead> *@
+@*             <tbody> *@
+@*                 @foreach (var item in Model) *@
+@*                 { *@
+@*                     <tr class="align-middle"> *@
+@*                         <td class="px-4 fw-medium text-dark"> *@
+@*                             @Html.DisplayFor(modelItem => item.ServiceName) *@
+@*                         </td> *@
+@*                         <td class="text-danger fw-bold"> *@
+@*                             @String.Format("{0:N0} đ", item.Price) *@
+@*                         </td> *@
+@*                         <td> *@
+@*                             <i class="fa-regular fa-clock text-muted me-1"></i> @Html.DisplayFor(modelItem => item.DurationMinutes) *@
+@*                         </td> *@
+@*                         <td class="text-muted text-truncate" style="max-width: 200px;"> *@
+@*                             @Html.DisplayFor(modelItem => item.Description) *@
+@*                         </td> *@
+@*                         <td class="text-end px-4"> *@
+@*                             <a asp-action="Edit" asp-route-id="@item.ServiceId" class="btn btn-sm btn-outline-primary rounded-pill px-3"> *@
+@*                                 <i class="fa-solid fa-pen"></i> Sửa *@
+@*                             </a> *@
+@*                             <a asp-action="Details" asp-route-id="@item.ServiceId" class="btn btn-sm btn-outline-info rounded-pill px-3"> *@
+@*                                 <i class="fa-solid fa-circle-info"></i> Chi tiết *@
+@*                             </a> *@
+@*                             <a asp-action="Delete" asp-route-id="@item.ServiceId" class="btn btn-sm btn-outline-danger rounded-pill px-3"> *@
+@*                                 <i class="fa-solid fa-trash"></i> Xóa *@
+@*                             </a> *@
+@*                         </td> *@
+@*                     </tr> *@
+@*                 } *@
+@*             </tbody> *@
+@*         </table> *@
+@*     </div> *@
+@* </div> *@
+
+@model IEnumerable<HairSalon.Models.Service>
 @{
     ViewData["Title"] = "Quản lý Dịch vụ";
 }
@@ -65,6 +123,18 @@
         <i class="fa-solid fa-plus me-1"></i> Thêm dịch vụ mới
     </a>
 </div>
+
+<!-- FORM TÌM KIẾM -->
+<form asp-action="Index" method="get" class="mb-4">
+    <div class="input-group shadow-sm">
+        <input type="text" name="searchString" value="@ViewBag.CurrentSearch" class="form-control form-control-lg border-0 bg-white" placeholder="Nhập tên dịch vụ cần tìm..." />
+        <button type="submit" class="btn btn-primary px-4 fw-bold"><i class="fa-solid fa-magnifying-glass me-2"></i> Tìm kiếm</button>
+        @if (!string.IsNullOrEmpty(ViewBag.CurrentSearch))
+        {
+            <a asp-action="Index" class="btn btn-secondary px-4 fw-bold">Hủy lọc</a>
+        }
+    </div>
+</form>
 
 <div class="card shadow-sm border-0 overflow-hidden">
     <div class="card-body p-0">
@@ -82,32 +152,32 @@
                 @foreach (var item in Model)
                 {
                     <tr class="align-middle">
-                        <td class="px-4 fw-medium text-dark">
-                            @Html.DisplayFor(modelItem => item.ServiceName)
-                        </td>
-                        <td class="text-danger fw-bold">
-                            @String.Format("{0:N0} đ", item.Price)
-                        </td>
-                        <td>
-                            <i class="fa-regular fa-clock text-muted me-1"></i> @Html.DisplayFor(modelItem => item.DurationMinutes)
-                        </td>
-                        <td class="text-muted text-truncate" style="max-width: 200px;">
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
+                        <td class="px-4 fw-medium text-dark">@item.ServiceName</td>
+                        <td class="text-danger fw-bold">@String.Format("{0:N0} đ", item.Price)</td>
+                        <td><i class="fa-regular fa-clock text-muted me-1"></i> @item.DurationMinutes</td>
+                        <td class="text-muted text-truncate" style="max-width: 200px;">@item.Description</td>
                         <td class="text-end px-4">
-                            <a asp-action="Edit" asp-route-id="@item.ServiceId" class="btn btn-sm btn-outline-primary rounded-pill px-3">
-                                <i class="fa-solid fa-pen"></i> Sửa
-                            </a>
-                            <a asp-action="Details" asp-route-id="@item.ServiceId" class="btn btn-sm btn-outline-info rounded-pill px-3">
-                                <i class="fa-solid fa-circle-info"></i> Chi tiết
-                            </a>
-                            <a asp-action="Delete" asp-route-id="@item.ServiceId" class="btn btn-sm btn-outline-danger rounded-pill px-3">
-                                <i class="fa-solid fa-trash"></i> Xóa
-                            </a>
+                            <a asp-action="Edit" asp-route-id="@item.ServiceId" class="btn btn-sm btn-outline-primary rounded-pill px-3"><i class="fa-solid fa-pen"></i> Sửa</a>
+                            <a asp-action="Delete" asp-route-id="@item.ServiceId" class="btn btn-sm btn-outline-danger rounded-pill px-3"><i class="fa-solid fa-trash"></i> Xóa</a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
+
+    <!-- THANH CHUYỂN TRANG -->
+    @if (ViewBag.TotalPages > 1)
+    {
+        <div class="card-footer bg-white py-3 border-0 d-flex justify-content-center">
+            <ul class="pagination mb-0 shadow-sm">
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pg="@i" asp-route-searchString="@ViewBag.CurrentSearch">@i</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
 </div>

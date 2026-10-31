@@ -1,48 +1,121 @@
+﻿@* @model HairSalon.Models.Service *@
+
+@* @{ *@
+@*     ViewData["Title"] = "Create"; *@
+@* } *@
+
+@* <h1>Create</h1> *@
+
+@* <h4>Service</h4> *@
+@* <hr /> *@
+@* <div class="row"> *@
+@*     <div class="col-md-4"> *@
+@*         <form asp-action="Create"> *@
+@*             <div asp-validation-summary="ModelOnly" class="text-danger"></div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="ServiceName" class="control-label"></label> *@
+@*                 <input asp-for="ServiceName" class="form-control" /> *@
+@*                 <span asp-validation-for="ServiceName" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="Price" class="control-label"></label> *@
+@*                 <input asp-for="Price" class="form-control" /> *@
+@*                 <span asp-validation-for="Price" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="DurationMinutes" class="control-label"></label> *@
+@*                 <input asp-for="DurationMinutes" class="form-control" /> *@
+@*                 <span asp-validation-for="DurationMinutes" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <label asp-for="Description" class="control-label"></label> *@
+@*                 <input asp-for="Description" class="form-control" /> *@
+@*                 <span asp-validation-for="Description" class="text-danger"></span> *@
+@*             </div> *@
+@*             <div class="form-group"> *@
+@*                 <input type="submit" value="Create" class="btn btn-primary" /> *@
+@*             </div> *@
+@*         </form> *@
+@*     </div> *@
+@* </div> *@
+
+@* <div> *@
+@*     <a asp-action="Index">Back to List</a> *@
+@* </div> *@
+
+@* @section Scripts { *@
+@*     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} *@
+@* } *@
+
 @model HairSalon.Models.Service
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Thêm Dịch vụ Mới";
 }
 
-<h1>Create</h1>
+<div class="d-flex justify-content-between align-items-center mb-4 mt-3">
+    <h2 class="fw-bold"><i class="fa-solid fa-scissors text-warning me-2"></i>Thêm Dịch vụ Mới</h2>
+    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-3 fw-bold">
+        <i class="fa-solid fa-arrow-left me-1"></i> Quay lại danh sách
+    </a>
+</div>
 
-<h4>Service</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ServiceName" class="control-label"></label>
-                <input asp-for="ServiceName" class="form-control" />
-                <span asp-validation-for="ServiceName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DurationMinutes" class="control-label"></label>
-                <input asp-for="DurationMinutes" class="form-control" />
-                <span asp-validation-for="DurationMinutes" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0 rounded-4 p-4 p-md-5 bg-white">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3" role="alert"></div>
+
+                <div class="row g-4">
+                    <!-- Tên dịch vụ -->
+                    <div class="col-md-12">
+                        <label asp-for="ServiceName" class="form-label fw-bold text-muted small">TÊN DỊCH VỤ <span class="text-danger">*</span></label>
+                        <input asp-for="ServiceName" class="form-control form-control-lg bg-light border-0 shadow-sm" placeholder="VD: Cắt tóc nam tạo kiểu..." required />
+                        <span asp-validation-for="ServiceName" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Giá tiền -->
+                    <div class="col-md-6">
+                        <label asp-for="Price" class="form-label fw-bold text-muted small">GIÁ TIỀN (VNĐ) <span class="text-danger">*</span></label>
+                        <div class="input-group input-group-lg shadow-sm rounded-3 overflow-hidden">
+                            <input asp-for="Price" type="number" class="form-control bg-light border-0" placeholder="VD: 100000" required min="0" />
+                            <span class="input-group-text bg-light border-0 text-muted fw-bold">đ</span>
+                        </div>
+                        <span asp-validation-for="Price" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Thời gian -->
+                    <div class="col-md-6">
+                        <label asp-for="DurationMinutes" class="form-label fw-bold text-muted small">THỜI GIAN THỰC HIỆN <span class="text-danger">*</span></label>
+                        <div class="input-group input-group-lg shadow-sm rounded-3 overflow-hidden">
+                            <input asp-for="DurationMinutes" type="number" class="form-control bg-light border-0" placeholder="VD: 45" required min="1" />
+                            <span class="input-group-text bg-light border-0 text-muted fw-bold">Phút</span>
+                        </div>
+                        <span asp-validation-for="DurationMinutes" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Mô tả -->
+                    <div class="col-md-12">
+                        <label asp-for="Description" class="form-label fw-bold text-muted small">MÔ TẢ CHI TIẾT</label>
+                        <textarea asp-for="Description" class="form-control form-control-lg bg-light border-0 shadow-sm" rows="4" placeholder="Nhập mô tả ngắn về các bước thực hiện hoặc hóa chất sử dụng..."></textarea>
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <hr class="my-5 text-muted" />
+
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-warning btn-lg rounded-pill px-5 fw-bold shadow text-white">
+                        <i class="fa-solid fa-floppy-disk me-2"></i> LƯU DỊCH VỤ
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,9 +21,36 @@ namespace HairSalon.Controllers
         }
 
         // GET: Services
-        public async Task<IActionResult> Index()
+        // Thêm tham số searchString (từ khóa) và pg (trang hiện tại, mặc định là 1)
+        public async Task<IActionResult> Index(string searchString, int pg = 1)
         {
-            return View(await _context.Services.ToListAsync());
+            // 1. Logic Tìm kiếm
+            var services = from s in _context.Services select s;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                // Tìm theo tên dịch vụ
+                services = services.Where(s => s.ServiceName.Contains(searchString));
+            }
+
+            // 2. Logic Phân trang
+            const int pageSize = 5; // Hiển thị tối đa 5 dịch vụ trên 1 trang
+            if (pg < 1) pg = 1;
+
+            int totalRecords = await services.CountAsync();
+            int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+            // Lấy dữ liệu của trang hiện tại
+            var data = await services.OrderByDescending(s => s.ServiceId)
+                                     .Skip((pg - 1) * pageSize)
+                                     .Take(pageSize)
+                                     .ToListAsync();
+
+            // Truyền dữ liệu ra View để hiển thị phân trang
+            ViewBag.CurrentSearch = searchString;
+            ViewBag.CurrentPage = pg;
+            ViewBag.TotalPages = totalPages;
+
+            return View(data);
         }
 
         // GET: Services/Details/5
